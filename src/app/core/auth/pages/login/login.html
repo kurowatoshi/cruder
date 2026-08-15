@@ -1,0 +1,98 @@
+<main
+  class="flex min-h-svh items-center justify-center bg-muted/30 px-4 py-10"
+>
+  <hlm-card class="w-full max-w-md shadow-lg">
+    <hlm-card-header class="text-center">
+      <h3 hlmCardTitle class="text-2xl">
+        Welcome back
+      </h3>
+
+      <p hlmCardDescription>
+        Enter your account credentials to continue.
+      </p>
+    </hlm-card-header>
+
+    <div hlmCardContent>
+      <form
+        class="space-y-5"
+        [formGroup]="form"
+        (ngSubmit)="submit()"
+      >
+        <div class="space-y-2">
+          <label hlmLabel for="email">Email address</label>
+
+          <input
+            hlmInput
+            id="email"
+            type="email"
+            class="w-full"
+            formControlName="email"
+            autocomplete="username"
+            placeholder="name@example.com"
+          />
+
+          @if (
+            form.controls.email.touched &&
+            form.controls.email.hasError('required')
+          ) {
+            <p class="text-sm text-destructive">
+              Email address is required.
+            </p>
+          }
+
+          @if (
+            form.controls.email.touched &&
+            form.controls.email.hasError('email')
+          ) {
+            <p class="text-sm text-destructive">
+              Enter a valid email address.
+            </p>
+          }
+        </div>
+
+        <div class="space-y-2">
+          <label hlmLabel for="password">Password</label>
+
+          <input
+            hlmInput
+            id="password"
+            type="password"
+            class="w-full"
+            formControlName="password"
+            autocomplete="current-password"
+            placeholder="Enter your password"
+          />
+
+          @if (
+            form.controls.password.touched &&
+            form.controls.password.hasError('required')
+          ) {
+            <p class="text-sm text-destructive">
+              Password is required.
+            </p>
+          }
+        </div>
+
+        @if (authStore.error()) {
+          <div
+            role="alert"
+            class="rounded-md border border-destructive/30 bg-destructive/10 p-3 text-sm text-destructive"
+          >
+            {{ authStore.error() }}
+          </div>
+        }
+
+        <button hlmBtn type="submit" class="w-full">
+          Sign in
+        </button>
+      </form>
+    </div>
+
+    <hlm-card-footer class="justify-center">
+      <div class="text-center text-xs text-muted-foreground">
+        <p>Demo administrator</p>
+        <p class="font-medium">admin@demo.com / Admin123!</p>
+      </div>
+    </hlm-card-footer>
+  </hlm-card>
+</main>
